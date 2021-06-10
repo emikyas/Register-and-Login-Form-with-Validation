@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './common/input';
+import Select from './common/select';
 
 class InputForm extends Component {
     state = {
@@ -12,7 +13,7 @@ class InputForm extends Component {
 
         console.log('Submitted!')
     }
-    
+
     handleChange = ({currentTarget: input}) => {
         const form = { ...this.state.form };
 
@@ -36,7 +37,20 @@ class InputForm extends Component {
                 label={label}
                 value={form[name]}
                 onChange={this.handleChange}
-                // error={errors[name]}
+                error={errors[name]}
+            />
+        );
+    };
+    renderSelect(name, label, options) {
+        const { form, errors } = this.state;
+        return (
+            <Select
+                name={name}
+                label={label}
+                options={options}
+                value={form[name]}
+                onChange={this.handleChange}
+                error={errors[name]}
             />
         );
     };
