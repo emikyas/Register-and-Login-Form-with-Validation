@@ -4,7 +4,7 @@ import InputForm from '../inputForm';
 
 class BasicForm extends InputForm {
     state = {
-        form: {
+        data: {
             username: '',
             password: '',
             email: '',
@@ -18,23 +18,46 @@ class BasicForm extends InputForm {
     validate = () => {
         
         const errors = {};
-        const { form } = this.state;
-        if (form.username.trim() === '')
+        const { data } = this.state;
+        if (data.username.trim() === '')
             errors.username = 'Username is required.'
-        if (form.password.trim() === '')
+        if (data.password.trim() === '')
             errors.password = 'Password is required.'
-        if (form.email.trim() === '')
+        if (data.email.trim() === '')
             errors.email = 'Email is required.'
-        if (form.company.trim() === '')
+        if (data.company.trim() === '')
             errors.company = 'Company Name is required.'
-        if (form.selectOpt.trim() === '')
+        if (data.selectOpt.trim() === '')
             errors.selectOpt = 'Options is required.'
-        if (form.siteLink.trim() === '')
+        if (data.siteLink.trim() === '')
             errors.siteLink = 'Website Link is required.'
-        if (form.comments.trim() === '')
+        if (data.comments.trim() === '')
             errors.comments = 'Comment is required.'
         
         return Object.keys(errors).length === 0 ? null : errors;
+    }
+    validateProperty = ({ name, value }) => {
+        if (name === 'username') {
+            if (value.trim() === '') return 'Username is required.';
+        }
+        if (name === 'password') {
+            if (value.trim() === '') return 'Password is required.';
+        }
+        if (name === 'email') {
+            if (value.trim() === '') return 'Email is required.';
+        }
+        if (name === 'company') {
+            if (value.trim() === '') return 'Company is required.';
+        }
+        if (name === 'selectOpt') {
+            if (value.trim() === '') return 'Options is required.';
+        }
+        if (name === 'siteLink') {
+            if (value.trim() === '') return 'Website link is required.';
+        }
+        if (name === 'comments') {
+            if (value.trim() === '') return 'Comment section is required.';
+        }
     }
     handleSubmit = e => {
         e.preventDefault();

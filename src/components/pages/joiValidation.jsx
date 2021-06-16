@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Joi from 'joi-browser';
-import InputForm from './../inputForm';
+import InputForm from '../inputForm';
+import { getOptions } from '../../services/formOpt';
 
 class JoiForm extends InputForm {
     state = {
-        form: {
+        data: {
             username: '',
             password: '',
             email: '',
             company: '',
-            options: '',
+            selectOpt: '',
             siteLink: '',
             comments: ''
-        }
+        },
+        errors: {}
     } 
     schema = {
         id: Joi.string(),
@@ -20,22 +22,24 @@ class JoiForm extends InputForm {
         password: Joi.string().regex(/[a-zA-Z0-9]{3,30}/).label('Password'),
         email: Joi.string().email({ tlds: {allow: false} }).required().label('Email'),
         company: Joi.string().required().label('Company Name'),
-        options: Joi.string().required().label('Select Option'),
+        selectOpt: Joi.string().required().label('Select Option'),
         siteLink: Joi.string().uri().required().label('Website Url'),
         comments: Joi.string().required().label('Comment')
     }
-    
     render() { 
         return ( 
-            <form className="row g-3 mt-3" onSubmit={this.handleSubmit}>
-                {this.renderInput('username', 'Username')}
-                {this.renderInput('password', 'Password')}
-                {this.renderInput('email', 'Email')}
-                {this.renderInput('company', 'Company Name')}
-                {this.renderInput('options', 'Select Options')}
-                {this.renderInput('siteLink', 'Website Link')}
-                {this.renderInput('comments', 'Comment')}
-            </form>
+            <section>
+                <form className="row g-3 mt-3" onSubmit={this.handleSubmit}>
+                    {this.renderInput('username', 'Username')}
+                    {this.renderInput('password', 'Password')}
+                    {this.renderInput('email', 'Email')}
+                    {this.renderInput('company', 'Company Name')}
+                    {this.renderSelect('selectOpt', 'Select Options', getOptions())}
+                    {this.renderInput('siteLink', 'Website Link')}
+                    {this.renderInput('comments', 'Comment')}
+                    {this.renderButton('Save')}
+                </form>
+            </section>
         );
     }
 }

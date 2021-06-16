@@ -5,9 +5,9 @@ const Select = ({ name, label, options, error, ...rest }) => {
         
         <div className="form-floating">
             <select className={`form-select required ${error && 'is-invalid'}`} id={name} name={name} {...rest} aria-label="Floating label select example">
-                <option value=''>Please select</option>
+                <option name={name} value=''>Please select</option>
                 {options.map(option => (
-                    <option key={option.id} value={option.name}>
+                    <option key={option.id} name={name} value={option.name}>
                         {option.name}
                     </option>
                 ))}
